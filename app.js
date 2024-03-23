@@ -7,7 +7,7 @@ const path = require('path')
 
 const app = express()
 
-app.use(express.static(path.resolve(__dirname, './comfy-store/dist')))
+app.use(express.static(path.resolve(__dirname, './public')))
 app.use(express.json())
 app.use(cors())
 
@@ -32,4 +32,3 @@ const start = async () => {
 }
 
 start()
-
