@@ -14,7 +14,7 @@ app.use(cors())
 app.use('/store', router)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './comfy-store/dist', 'index.html'))
+  res.sendFile(path.resolve(__dirname, './public', 'index.html'))
 })
 
 const PORT = process.env.PORT || 5000
