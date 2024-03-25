@@ -9,7 +9,7 @@ const Registers = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await axios.post('http://localhost:4002/store/register', {
+    await axios.post('/store/register', {
       email: isRegister.email,
       password: isRegister.password,
     })
