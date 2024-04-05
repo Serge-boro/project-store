@@ -5,11 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "client": "cd comfy-store && npm run dev",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
