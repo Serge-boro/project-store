@@ -104,7 +104,7 @@ const Registers = () => {
       <section className='h-screen grid place-items-center'>
         <form
           onSubmit={handleSubmit}
-          className='card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4'
+          className='card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 mt-32'
         >
           <h4 className='text-center text-3xl fond-bold'>Registration</h4>
           <label htmlFor='username'>
@@ -215,7 +215,7 @@ const Registers = () => {
             spinnerButton={spinnerButton}
           />
         </form>
-        <p className='text-center'>
+        <p className='text-center mb-48'>
           Already a member?
           <Link to='/login' className='ml-2 link link-primary capitalize'>
             login

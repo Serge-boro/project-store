@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useContextProvider } from '../contextProvider/ProductsContext'
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import { formatPrice } from '../utils'
+import { formatPrice, generateAmountOptions } from '../utils/index'
 import { Loading } from '../components'
 import { useDispatch } from 'react-redux'
-import { addItem } from '../feature/cart/CartSlice'
+import { addItem } from '../feature/cart/cartSlice'
+import { nanoid } from 'nanoid'
 
 const url = '/products'
 
@@ -12,6 +13,8 @@ const SingleProduct = () => {
   const [isSingleProduct, setIsSingleProduct] = useState({})
   const { customeFetchData, loading } = useContextProvider()
   let { id } = useParams()
+
+  const cartID = nanoid()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -24,7 +27,7 @@ const SingleProduct = () => {
   const [amount, setAmount] = useState(1)
 
   const cartProduct = {
-    cartID: productID + colorData[0],
+    cartID,
     productID,
     image,
     title,
@@ -58,18 +61,6 @@ const SingleProduct = () => {
 
   const handleAmount = (e) => {
     setAmount(parseInt(e.target.value))
-  }
-
-  const generateAmountOptions = (number) => {
-    return Array.from({ length: number }, (_, idx) => {
-      const amounts = idx + 1
-
-      return (
-        <option key={amounts} value={amounts}>
-          {amounts}
-        </option>
-      )
-    })
   }
 
   return (
@@ -133,7 +124,7 @@ const SingleProduct = () => {
                   value={amount}
                   onChange={handleAmount}
                 >
-                  {generateAmountOptions(20)}
+                  {generateAmountOptions(amount + 5)}
                 </select>
               </div>
               <div className='mt-10'>

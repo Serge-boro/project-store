@@ -14,7 +14,6 @@ const PaginationContainer = ({
 
   const [page, setPage] = useState(0)
   const [paginPage, setPaginPage] = useState(1)
-  const [isIndex, setIsIndex] = useState(1)
   const { customeFetchData, cleanUpInputs } = useContextProvider()
 
   const { doRequest: doPagination } = customeFetchData({

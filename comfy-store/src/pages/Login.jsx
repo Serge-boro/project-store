@@ -8,8 +8,8 @@ const LOGIN_URL = '/store/login'
 
 const Login = () => {
   const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+  // const location = useLocation()
+  // const from = location.state?.from?.pathname || '/'
 
   // console.log({ location, from })
 
@@ -78,11 +78,10 @@ const Login = () => {
   return (
     <section className='h-screen grid place-items-center'>
       <form
-        className='card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4'
+        className='card w-96 p-8 bg-base-100 shadow-lg flex flex-col gap-y-4 mt-32'
         onSubmit={handleSubmit}
       >
         <h4 className='text-center text-3xl fond-bold'>Login</h4>
-
         <label htmlFor='username'>UserName:</label>
         <input
           type='text'
@@ -104,7 +103,10 @@ const Login = () => {
         />
         <button className='btn btn-primary btn-block'>login</button>
       </form>
-      <p className='text-center'>
+      <button className='w-80 p-4 shadow-lg btn btn-primary btn-block mb-24'>
+        guest user
+      </button>
+      <p className='text-center mb-48'>
         Not a member yet?
         <Link
           to='/register'
