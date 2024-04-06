@@ -5,13 +5,15 @@ const ProductsProvider = createContext()
 export const ProductsContext = ({ children }) => {
   const [errors, setErrors] = useState(null)
   const [loading, setLoading] = useState(false)
-
+  const [isNavlink, setIsNavlink] = useState(false)
   const [isSearch, setIsSearch] = useState('')
   const [isCompany, setIsCompany] = useState('all')
   const [isCategory, setIsCategory] = useState('all')
   const [isOrder, setIsOrder] = useState('a-z')
   const [selectedPrice, setSelectedPrice] = useState(100000)
   const [selectCheckbox, setSelectCheckbox] = useState(false)
+  const [spinnerButton, setSpinnerButton] = useState(false)
+  const [orderItemsList, setIsOrderItemsList] = useState({})
 
   const cleanUpInputs = () => {
     setIsSearch('')
@@ -28,8 +30,6 @@ export const ProductsContext = ({ children }) => {
         setLoading(true)
         setErrors(null)
         const { data } = await customFetch[method](url, { params }, body)
-        // const response = await customFetch[method](url, { params }, body)
-        // console.log(response)
         data?.data && setLoading(false)
         return data
       } catch (err) {
@@ -50,6 +50,8 @@ export const ProductsContext = ({ children }) => {
       value={{
         customeFetchData,
         loading,
+        isNavlink,
+        setIsNavlink,
         isSearch,
         setIsSearch,
         isCompany,
@@ -63,6 +65,10 @@ export const ProductsContext = ({ children }) => {
         selectCheckbox,
         setSelectCheckbox,
         cleanUpInputs,
+        spinnerButton,
+        setSpinnerButton,
+        orderItemsList,
+        setIsOrderItemsList,
       }}
     >
       {children}

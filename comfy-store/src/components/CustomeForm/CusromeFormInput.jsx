@@ -1,14 +1,12 @@
-import React from 'react'
-
 const FormInput = ({
   htmlFor,
   label,
   name,
   type,
-  // defaultValue,
   size,
   onChange,
   value,
+  required,
 }) => {
   return (
     <div className='form-control'>
@@ -22,9 +20,9 @@ const FormInput = ({
         type={type}
         name={name}
         value={value}
-        // defaultValue={defaultValue}
         className={`input input-bordered ${size} `}
         onChange={onChange}
+        required={required}
       />
     </div>
   )

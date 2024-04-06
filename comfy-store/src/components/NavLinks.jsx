@@ -8,8 +8,10 @@ const links = [
 ]
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { useContextProvider } from '../contextProvider/ProductsContext'
 
 const NavLinks = () => {
+  const { isNavlink, navLinkSmallClose } = useContextProvider()
   const user = useSelector((state) => state.userState.user)
   return (
     <>

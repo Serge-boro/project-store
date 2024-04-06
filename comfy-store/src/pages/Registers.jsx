@@ -14,13 +14,14 @@ const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const REGISTER_URL = '/store/register'
 
-import SubmitBtnRegister from '../components/SubmitBtnRegistration'
+import SubmitBtnRegister from '../components/SubmitBtn'
+import { useContextProvider } from '../contextProvider/ProductsContext'
 
 const Registers = () => {
+  const { spinnerButton, setSpinnerButton } = useContextProvider()
   const navigate = useNavigate()
   const location = useLocation()
   const userRef = useRef()
-  const errRef = useRef()
 
   const [user, setUser] = useState('')
   const [validName, setValidName] = useState(false)
@@ -33,8 +34,6 @@ const Registers = () => {
   const [matchPwd, setMatchPwd] = useState('')
   const [validMatch, setValidMatch] = useState(false)
   const [matchFocus, setMatchFocus] = useState(false)
-
-  const [spinnerButton, setSpinnerButton] = useState(false)
 
   useEffect(() => {
     userRef.current.focus()
@@ -85,7 +84,6 @@ const Registers = () => {
         toast.error(err.response.data.message)
         setSpinnerButton(true)
       }
-      errRef.current.focus()
     }
   }
 

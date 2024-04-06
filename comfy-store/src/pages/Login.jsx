@@ -8,13 +8,8 @@ const LOGIN_URL = '/store/login'
 
 const Login = () => {
   const navigate = useNavigate()
-  // const location = useLocation()
-  // const from = location.state?.from?.pathname || '/'
-
-  // console.log({ location, from })
 
   const userRef = useRef()
-  // const errRef = useRef()
 
   const [user, setUser] = useState('')
   const [pwd, setPwd] = useState('')

@@ -21,25 +21,8 @@ import {
   Login,
 } from './pages'
 
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <HomeLayout />,
-//     errorElement: <Error />,
-//     children: [
-//       { index: true, element: <Landing /> },
-//       { path: 'products', element: <Products /> },
-//       { path: 'products/:id', element: <SingleProduct /> },
-//     ],
-//   },
-//   { path: '/login', element: <Login />, errorElement: <Error /> },
-//   { path: '/register', element: <Registers />, errorElement: <Error /> },
-// ])
-
 function App() {
-  // return <RouterProvider router={router} />
   return (
-    // <div className='relative z-0  w-500px h-[1000px] bg-primary border'>
     <Routes>
       <Route path='/' element={<HomeLayout />}>
         <Route index element={<Landing />} />
@@ -70,7 +53,6 @@ function App() {
       </Route>
       <Route path='*' element={<Navigate to='/' replace />} />
     </Routes>
-    // </div>
   )
 }
 

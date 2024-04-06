@@ -5,6 +5,8 @@ import { logo } from '../assets'
 import NavLinks from './NavLinks'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '../feature/user/userSlice'
+import { useContextProvider } from '../contextProvider/ProductsContext'
+import { useEffect } from 'react'
 
 /*
 html teg styling=> 
@@ -14,15 +16,17 @@ LocalStorage.getItem('style') || 'red'
 */
 
 const Navbar = () => {
+  const { isNavlink, setIsNavlink } = useContextProvider()
   const dispatch = useDispatch()
+
+  // useEffect(() => {
+  // }, [])
 
   const handleTheme = () => {
     dispatch(toggleTheme())
   }
 
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart)
-
-  
 
   return (
     <nav className='bg-base-200'>
@@ -37,16 +41,18 @@ const Navbar = () => {
             <img src={logo} alt='logo' className='w-10 object-contain' />
           </NavLink>
           {/* DROPDOWN */}
-          <div className='dropdown'>
+          <div onClick={() => setIsNavlink(!isNavlink)}>
             <label tabIndex={0} className='btn btn-ghost lg:hidden'>
               <FaBarsStaggered className='h-6 w-6' />
             </label>
-            <ul
-              tabIndex={0}
-              className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52'
-            >
-              <NavLinks />
-            </ul>
+            {isNavlink && (
+              <ul
+                tabIndex={0}
+                className='menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-200 rounded-box w-52 absolute'
+              >
+                <NavLinks />
+              </ul>
+            )}
           </div>
         </div>
 
