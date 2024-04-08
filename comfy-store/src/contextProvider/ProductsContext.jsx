@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from 'react'
 import { customFetch } from '../utils'
+import axios from '../axios/axios'
+import { useNavigation } from 'react-router-dom'
 
 const ProductsProvider = createContext()
 export const ProductsContext = ({ children }) => {
@@ -17,8 +19,8 @@ export const ProductsContext = ({ children }) => {
 
   const cleanUpInputs = () => {
     setIsSearch('')
-    setIsCompany('all')
-    setIsCategory('all')
+    setIsCompany('')
+    setIsCategory('')
     setIsOrder('a-z')
     setSelectedPrice(100000)
     setSelectCheckbox(false)
@@ -29,7 +31,7 @@ export const ProductsContext = ({ children }) => {
       try {
         setLoading(true)
         setErrors(null)
-        const { data } = await customFetch[method](url, { params }, body)
+        const { data } = await axios[method](url, { params }, body)
         data?.data && setLoading(false)
         return data
       } catch (err) {

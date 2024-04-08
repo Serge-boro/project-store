@@ -1,5 +1,5 @@
 import { formatPrice } from '../../utils'
-const OrdersList = ({ order }) => {
+const OrdersList = ({ order, setOrder }) => {
   const { address, cartItems, chargeTotal, date, name, numItemsInCart } = order
 
   const addressOrder = address && address.slice(0, 15) + '...'
@@ -73,7 +73,9 @@ const OrdersList = ({ order }) => {
           </div>
         </div>
       </article>
-      <button className='btn btn-primary w-48'>proceed your payments</button>
+      <button className='btn btn-primary w-48' onClick={() => setOrder({})}>
+        proceed your payments
+      </button>
     </div>
   )
 }

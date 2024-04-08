@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { hero1, hero2, hero3, hero4 } from '../assets'
 import { useState } from 'react'
 import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
 
 const carouselImages = [
   { name: hero1 },
@@ -11,6 +12,8 @@ const carouselImages = [
 ]
 const Hero = () => {
   const [isIndex, setIsIndex] = useState(1)
+
+  const { user } = useSelector((state) => state.userState.user)
 
   const { name } = carouselImages[isIndex]
 
@@ -29,12 +32,15 @@ const Hero = () => {
         <h1 className='max-w-2xl text-4xl font-bold tracking-tight sm:text-6xl'>
           We are changing the way people shop
         </h1>
-        <p className='mt-8 max-w-xl text-lg leading-8'>
+        <p className='mt-8 max-w-xl text-lg leading-8 mb-8'>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque
           adipisci, voluptas, mollitia fuga sint temporibus explicabo quo
           sapiente necessitatibus neque id nam alias esse illum similique porro
           corporis voluptates ipsum praesentium, quod dicta sequi. Maxime
           laboriosam sapiente nulla. Dolores, fugiat.
+        </p>
+        <p className={`text-[#ff5efa] ${user && 'hidden'} `}>
+          Please sign in or take the guest button to get more options
         </p>
         <div className='mt-10'>
           <Link to='/products' className='btn btn-primary'>

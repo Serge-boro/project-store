@@ -25,7 +25,6 @@ const Products = () => {
   })
   const getData = async () => {
     const { data, meta } = await doRequestProducts()
-
     setIsProducts(data)
     setIsMeta(meta)
     setIsPagination(meta?.pagination)
@@ -37,7 +36,7 @@ const Products = () => {
 
   const dataProps = (data) => {
     setIsProducts(data)
-    data.length < 10 ? setDisablesButton(true) : setDisablesButton(false)
+    data.length < 9 ? setDisablesButton(true) : setDisablesButton(false)
   }
 
   const metaProps = (meta) => {
@@ -53,7 +52,7 @@ const Products = () => {
   }
 
   const pagesProps = (page) => {
-    if (totalProducts < 10) {
+    if (totalProducts < 9) {
       return page.slice(0, 1)
     } else {
       return page

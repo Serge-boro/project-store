@@ -12,12 +12,12 @@ import day from 'dayjs'
 const CheckoutForm = () => {
   const { setIsOrderItemsList } = useContextProvider()
 
-  const { username } = useSelector((state) => state.userState.user)
+  const { user } = useSelector((state) => state.userState.user)
   const { cartItems, orderTotal, numItemsInCart } = useSelector(
     (state) => state.cartState
   )
 
-  const [name, setName] = useState(username)
+  const [name, setName] = useState(user)
   const [address, setAddress] = useState('')
 
   const dispatch = useDispatch()
@@ -75,7 +75,14 @@ const CheckoutForm = () => {
         required
       />
       <div className='mt-4'>
-        <SubmitBtn text='Place Your Order' canSave={true} />
+        {!user || user === 'guest' ? (
+          <SubmitBtn
+            text='Please do login before place the order'
+            canSave={false}
+          />
+        ) : (
+          <SubmitBtn text='Place Your Order' canSave={true} />
+        )}
       </div>
     </form>
   )

@@ -40,10 +40,6 @@ const PaginationContainer = ({
 
   const newPages = pagesProps(pages)
 
-  // const handleNextPage = () => {
-  //   setPaginPage(prev => (prev + 1) % pages.length)}
-  // }
-
   const handlePrevPage = () => {
     setPaginPage((prev) => ((prev + 1) % pages.length) + 1)
   }

@@ -51,8 +51,9 @@ const SingleProduct = () => {
 
   const getData = async () => {
     const { data } = await doRequestSingleProduct()
-    setColorData(data?.attributes?.colors)
-    setIsSingleProduct(data)
+    console.log(data)
+    setColorData(data[0]?.attributes?.colors)
+    setIsSingleProduct(data[0])
   }
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-const UserSchema = require('../moduleDB/moduleDB')
+const UserSchema = require('../moduleDB/moduleUser')
 
 const getAllUsers = (req, res) => {
   res.send('All users')
@@ -28,9 +28,20 @@ const postRegister = async (req, res, next) => {
 }
 
 const postLogin = async (req, res, next) => {
-  const { user, pwd } = req.body
+  const { user, pwd, credentialName, credentialPassword } = req.body
 
   try {
+    if (
+      !user &&
+      !pwd &&
+      credentialName === 'test' &&
+      credentialPassword === 'test@test.com'
+    ) {
+      const user = 'guest'
+      res.status(200).json({ user })
+      return next()
+    }
+
     if (!user || !pwd) {
       return res
         .status(400)
@@ -75,7 +86,8 @@ const postLogin = async (req, res, next) => {
     // })
 
     // res.status(200).json({ accessToken, role })
-    res.status(200).json({ success: `User ${user} success login` })
+
+    res.status(200).json({ user })
   } catch (err) {
     next(err)
   }

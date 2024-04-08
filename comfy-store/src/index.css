@@ -8,12 +8,6 @@
   }
 }
 
-@media only screen and (max-width: 480x) {
-  .Toastify__toast-container {
-    width: 50px !important;
-  }
-}
-
 .errmsg {
   background-color: lightpink;
   color: firebrick;

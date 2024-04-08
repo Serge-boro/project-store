@@ -2,7 +2,7 @@ import { SectionTitle } from '../components'
 import OrdersList from '../components/OrderPage/OrderList'
 import { useContextProvider } from '../contextProvider/ProductsContext'
 const Orders = () => {
-  const { orderItemsList } = useContextProvider()
+  const { orderItemsList, setIsOrderItemsList } = useContextProvider()
 
   if (Object.keys(orderItemsList).length === 0) {
     return <SectionTitle text='Please make an order' />
@@ -10,7 +10,7 @@ const Orders = () => {
   return (
     <>
       <SectionTitle text='Your Orders' />
-      <OrdersList order={orderItemsList} />
+      <OrdersList order={orderItemsList} setOrder={setIsOrderItemsList} />
     </>
   )
 }
