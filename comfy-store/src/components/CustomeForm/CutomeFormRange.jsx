@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { formatPrice } from '../../utils'
 
 const FormRange = ({ label, name, price, size, onChange, value, htmlFor }) => {

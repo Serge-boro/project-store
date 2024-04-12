@@ -17,6 +17,16 @@ export const ProductsContext = ({ children }) => {
   const [spinnerButton, setSpinnerButton] = useState(false)
   const [orderItemsList, setIsOrderItemsList] = useState({})
 
+  const [isProducts, setIsProducts] = useState([])
+  const [isMeta, setIsMeta] = useState({})
+  const [isPagination, setIsPagination] = useState({})
+
+  const [paginPage, setPaginPage] = useState(1)
+  const [paginPageFilter, setPaginPageFilter] = useState(1)
+  const [paginPageFilterSplit, setPaginPageFilterSplit] = useState(false)
+
+  const [paginPageFilterSort, setPaginPageFilterSort] = useState(false)
+
   const cleanUpInputs = () => {
     setIsSearch('')
     setIsCompany('')
@@ -24,6 +34,10 @@ export const ProductsContext = ({ children }) => {
     setIsOrder('a-z')
     setSelectedPrice(100000)
     setSelectCheckbox(false)
+    setPaginPage(1)
+    setPaginPageFilter(1)
+    setPaginPageFilterSplit(false)
+    setPaginPageFilterSort(false)
   }
 
   const customeFetchData = ({ url, params, method, body }) => {
@@ -71,6 +85,20 @@ export const ProductsContext = ({ children }) => {
         setSpinnerButton,
         orderItemsList,
         setIsOrderItemsList,
+        paginPage,
+        setPaginPage,
+        paginPageFilter,
+        setPaginPageFilter,
+        paginPageFilterSplit,
+        setPaginPageFilterSplit,
+        isProducts,
+        setIsProducts,
+        isMeta,
+        setIsMeta,
+        isPagination,
+        setIsPagination,
+        paginPageFilterSort,
+        setPaginPageFilterSort,
       }}
     >
       {children}

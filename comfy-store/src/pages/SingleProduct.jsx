@@ -11,7 +11,7 @@ const url = '/products'
 
 const SingleProduct = () => {
   const [isSingleProduct, setIsSingleProduct] = useState({})
-  const { customeFetchData, loading } = useContextProvider()
+  const { customeFetchData, loading, cleanUpInputs } = useContextProvider()
   let { id } = useParams()
 
   const cartID = nanoid()
@@ -51,7 +51,7 @@ const SingleProduct = () => {
 
   const getData = async () => {
     const { data } = await doRequestSingleProduct()
-    console.log(data)
+    // console.log(data)
     setColorData(data[0]?.attributes?.colors)
     setIsSingleProduct(data[0])
   }
@@ -76,7 +76,9 @@ const SingleProduct = () => {
                 <Link to='/'>Home</Link>
               </li>
               <li>
-                <Link to='/products'>Products</Link>
+                <Link to='/products' onClick={() => cleanUpInputs()}>
+                  Products
+                </Link>
               </li>
             </ul>
           </div>

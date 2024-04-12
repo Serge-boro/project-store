@@ -1,5 +1,5 @@
 import { FormSelect, FromCheckbox, FormInput, FormRange } from '..'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useContextProvider } from '../../contextProvider/ProductsContext'
 import { Link } from 'react-router-dom'
 
@@ -8,8 +8,8 @@ const Filter = ({
   meta,
   dataProps,
   metaProps,
-  pagesProps,
-  setDisablesButton,
+  dataPropsSort,
+  metaPropsSort,
 }) => {
   const {
     customeFetchData,
@@ -26,6 +26,16 @@ const Filter = ({
     selectCheckbox,
     setSelectCheckbox,
     cleanUpInputs,
+    paginPageFilter,
+    setPaginPageFilter,
+    setPaginPageFilterSplit,
+    setIsProducts,
+    setIsMeta,
+    setIsPagination,
+    setPaginPageFilterSort,
+    setPaginPage,
+    paginPageFilterSort,
+    paginPageFilterSplit,
   } = useContextProvider()
 
   const { doRequest: doRequestProductsFilter } = customeFetchData({
@@ -38,27 +48,69 @@ const Filter = ({
       order: `${isOrder}`,
       price: `${selectedPrice}`,
       shipping: `${selectCheckbox}`,
+      page: `${paginPageFilter}`,
     },
     body: {},
   })
 
+  useEffect(() => {
+    getData()
+    setPaginPageFilterSplit(true)
+  }, [
+    paginPageFilter,
+    isOrder,
+    selectedPrice,
+    selectCheckbox,
+    isSearch,
+    isCategory,
+    isCompany,
+  ])
+
+  useEffect(() => {
+    getData()
+    setPaginPageFilterSort(true)
+  }, [
+    paginPageFilter,
+    isOrder,
+    selectedPrice,
+    selectCheckbox,
+    isSearch,
+    isCategory,
+    isCompany,
+  ])
+
   const getData = async () => {
     const { data, meta } = await doRequestProductsFilter()
+    setIsProducts(data)
+    setIsMeta(meta)
+    setIsPagination(meta?.pagination)
 
-    // console.log(data)
-    // console.log(response)
-
-    // const params = response?.config?.params
-    // category = params?.category
-    // console.log(category)
+    if (meta?.pagination.total <= 9) {
+      setPaginPageFilter(1)
+    }
 
     dataProps(data)
     metaProps(meta)
+
+    dataPropsSort(data)
+    metaPropsSort(meta)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     getData()
+  }
+
+  const handleRange = (e) => {
+    setSelectedPrice(e.target.value)
+    setPaginPageFilterSplit(true)
+  }
+
+  const handleSort = (e) => {
+    setIsOrder(e.target.value)
+    setPaginPageFilterSort(true)
+    console.log(paginPageFilterSort)
+    setPaginPageFilter(1)
   }
 
   return (
@@ -96,9 +148,9 @@ const Filter = ({
           htmlFor='order'
           label='sort by'
           name='order'
-          list={['a-z', 'z-a', 'high', 'low']}
+          list={['a-z', 'z-a', 'low', 'high']}
           value={isOrder}
-          onChange={(e) => setIsOrder(e.target.value)}
+          onChange={handleSort}
           size='select-sm mt-[1rem]'
         />
         <FormRange
@@ -107,7 +159,7 @@ const Filter = ({
           name='price'
           price='100000'
           size='range-sm'
-          onChange={(e) => setSelectedPrice(e.target.value)}
+          onChange={handleRange}
           value={selectedPrice}
         />
         <FromCheckbox
@@ -118,15 +170,17 @@ const Filter = ({
           value={selectCheckbox}
           onChange={(e) => setSelectCheckbox(e.target.checked)}
         />
-        <button className='btn btn-primary btn-sm' type='submit'>
+        {/* <button
+          className='btn btn-primary btn-sm'
+          type='submit'
+          onClick={resetPage}
+        >
           search
-        </button>
+        </button> */}
         <button
           className='btn btn-accent btn-sm'
           type='btn'
-          onClick={() => {
-            return cleanUpInputs(), () => pagesProps()
-          }}
+          onClick={() => cleanUpInputs()}
         >
           reset
         </button>

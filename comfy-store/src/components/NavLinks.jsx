@@ -8,8 +8,10 @@ const links = [
 ]
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
+import { useContextProvider } from '../contextProvider/ProductsContext'
 
 const NavLinks = () => {
+  const { cleanUpInputs } = useContextProvider()
   const { user } = useSelector((state) => state.userState.user)
   return (
     <>
@@ -18,7 +20,11 @@ const NavLinks = () => {
         if ((url === 'checkout' || url === 'orders') && !user) return null
         return (
           <li key={id}>
-            <NavLink className='capitalize' to={url}>
+            <NavLink
+              className='capitalize'
+              to={url}
+              onClick={() => cleanUpInputs()}
+            >
               {text}
             </NavLink>
           </li>

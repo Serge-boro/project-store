@@ -1,5 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useContextProvider } from '../../contextProvider/ProductsContext'
 
 const url = '/products'
@@ -7,14 +6,19 @@ const PaginationContainer = ({
   pagination,
   paginPageProps,
   paginPageMetaProps,
-  pagesProps,
-  disablesButton,
+  propPages,
 }) => {
   const { pageCount } = pagination
 
-  const [page, setPage] = useState(0)
-  const [paginPage, setPaginPage] = useState(1)
-  const { customeFetchData, cleanUpInputs } = useContextProvider()
+  const {
+    customeFetchData,
+    paginPage,
+    setPaginPage,
+    paginPageFilter,
+    setPaginPageFilter,
+    paginPageFilterSplit,
+    paginPageFilterSort,
+  } = useContextProvider()
 
   const { doRequest: doPagination } = customeFetchData({
     url,
@@ -24,7 +28,6 @@ const PaginationContainer = ({
   })
   const getData = async () => {
     const { data, meta } = await doPagination()
-    setPage(meta?.pagination?.page)
     paginPageProps(data)
     paginPageMetaProps(meta)
   }
@@ -33,44 +36,90 @@ const PaginationContainer = ({
     getData()
   }, [paginPage])
 
-  //pages
   const pages = Array.from({ length: pageCount }, (_, idx) => {
     return idx + 1
   })
 
-  const newPages = pagesProps(pages)
+  if (pages.length === 2) {
+    if (paginPageFilter === 3) {
+      setPaginPageFilter(pages.length - 1)
+    }
+  }
 
   const handlePrevPage = () => {
-    setPaginPage((prev) => ((prev + 1) % pages.length) + 1)
+    console.log(paginPageFilterSplit)
+    console.log(paginPageFilterSort)
+
+    if (!paginPageFilterSplit) {
+      setPaginPage((prev) => ((prev + 1) % pages.length) + 1)
+
+      if (paginPageFilterSort) {
+        setPaginPageFilter((prev) => ((prev + 1) % pages.length) + 1)
+      }
+    }
+    if (paginPageFilterSplit || paginPageFilterSort) {
+      setPaginPageFilter((prev) => ((prev + 1) % pages.length) + 1)
+    }
+    if (pages.length < 3) {
+      if (paginPageFilterSort || paginPageFilterSplit) {
+        setPaginPageFilter((prev) => (prev % pages.length) + 1)
+      }
+      if (paginPageFilterSplit || paginPageFilterSort) {
+        setPaginPageFilter((prev) => ((prev + 1) % pages.length) + 1)
+      }
+    }
   }
 
   const handleNextPage = () => {
-    setPaginPage((prev) => ((prev + pages.length) % pages.length) + 1)
+    console.log(paginPageFilterSplit)
+    console.log(paginPageFilterSort)
+    if (!paginPageFilterSplit) {
+      setPaginPage((prev) => ((prev + pages.length) % pages.length) + 1)
+
+      if (paginPageFilterSort) {
+        setPaginPageFilter((prev) => ((prev + pages.length) % pages.length) + 1)
+      }
+    }
+    if (paginPageFilterSplit) {
+      setPaginPageFilter((prev) => ((prev + pages.length) % pages.length) + 1)
+    }
   }
 
-  // if (pageCount < 2) return null
+  const setPanding = (item) => {
+    if (!paginPageFilterSplit) {
+      setPaginPage(item)
+      if (paginPageFilterSort) {
+        setPaginPageFilter(item)
+      }
+    }
+    if (paginPageFilterSplit) {
+      setPaginPageFilter(item)
+    }
+  }
 
   return (
     <div className='mt-16 flex justify-end'>
       <div className='join'>
         <button
-          disabled={disablesButton}
           className='btn btn-xs sm:btn-md join-item'
           onClick={() => handlePrevPage()}
         >
           Prev
         </button>
         <div>
-          {newPages?.map((item) => {
+          {pages?.map((item) => {
             return (
               <button
-                disabled={disablesButton}
                 key={item}
-                onClick={() => {
-                  setPaginPage(item), cleanUpInputs()
-                }}
+                onClick={() => setPanding(item)}
                 className={`btn btn-xs sm:btn-md border-none join-item ${
-                  item === page ? 'bg-base-300 border-base-800' : ''
+                  !paginPageFilterSplit
+                    ? item === paginPage
+                      ? 'bg-base-300 border-base-800'
+                      : ''
+                    : item === paginPageFilter
+                    ? 'bg-base-300 border-base-800'
+                    : ''
                 }`}
               >
                 {item}
@@ -79,7 +128,6 @@ const PaginationContainer = ({
           })}
         </div>
         <button
-          disabled={disablesButton}
           className='btn btn-xs sm:btn-md join-item'
           onClick={() => handleNextPage()}
         >
