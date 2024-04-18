@@ -44,12 +44,12 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
   try {
     const { data } = await axios.get(LOGOUT_URL, {
       headers: {
-        'Content-Type':
-          'application/x-www-form-urlencoded, multipart/form-data',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
-        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Credentials': 'true',
+        // 'Content-Type':
+        //   'application/x-www-form-urlencoded, multipart/form-data',
+        // 'Access-Control-Allow-Origin': '*',
+        // 'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
+        // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        // 'Access-Control-Allow-Credentials': 'true',
       },
       withCredentials: true,
     })
