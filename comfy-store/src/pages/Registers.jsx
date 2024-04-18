@@ -59,8 +59,8 @@ const Registers = () => {
         REGISTER_URL,
         { user, pwd },
         {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+          // headers: { 'Content-Type': 'application/json' },
+          // withCredentials: false,
         }
       )
       if (response.data) {

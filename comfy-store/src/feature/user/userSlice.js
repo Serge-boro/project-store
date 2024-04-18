@@ -21,8 +21,8 @@ export const addNewUser = createAsyncThunk(
   async (initialPost) => {
     try {
       const { data } = await axios.post(LOGIN_URL, initialPost, {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
+        // headers: { 'Content-Type': 'application/json' },
+        // withCredentials: true,
       })
       return data
     } catch (err) {
@@ -43,8 +43,8 @@ export const addNewUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
   try {
     const { data } = await axios.get(LOGOUT_URL, {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
+      // headers: { 'Content-Type': 'application/json' },
+      // withCredentials: false,
     })
     console.log(data)
     return data
