@@ -109,7 +109,6 @@ const Filter = ({
   const handleSort = (e) => {
     setIsOrder(e.target.value)
     setPaginPageFilterSort(true)
-    console.log(paginPageFilterSort)
     setPaginPageFilter(1)
   }
 

@@ -1,8 +1,25 @@
+import { useNavigate } from 'react-router-dom'
 import { formatPrice } from '../../utils'
+import { toast } from 'react-toastify'
 const OrdersList = ({ order, setOrder }) => {
+  const navigate = useNavigate()
   const { address, cartItems, chargeTotal, date, name, numItemsInCart } = order
 
   const addressOrder = address && address.slice(0, 15) + '...'
+
+  const orderProceed = () => {
+    setOrder({})
+    toast.success('payments was proceeded')
+    redirect()
+  }
+
+  const redirect = () => {
+    const timeOut = setTimeout(() => {
+      navigate('/')
+    }, 3000)
+
+    return () => clearTimeout(timeOut)
+  }
 
   return (
     <div className='mt-8'>
@@ -73,7 +90,7 @@ const OrdersList = ({ order, setOrder }) => {
           </div>
         </div>
       </article>
-      <button className='btn btn-primary w-48' onClick={() => setOrder({})}>
+      <button className='btn btn-primary w-48' onClick={orderProceed}>
         proceed your payments
       </button>
     </div>

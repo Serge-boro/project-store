@@ -60,7 +60,7 @@ const Registers = () => {
         { user, pwd },
         {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: false,
+          withCredentials: true,
         }
       )
       if (response.data) {

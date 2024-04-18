@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import {
   Filter,
   ProductsContainer,
@@ -6,6 +7,9 @@ import {
   Loading,
 } from '../components'
 import { useContextProvider } from '../contextProvider/ProductsContext'
+
+// import { useNavigate, useLocation } from 'react-router-dom'
+// import useAxiosPrivate from '../token/useAxiosPrivate'
 
 const url = '/products'
 const Products = () => {

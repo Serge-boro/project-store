@@ -19,6 +19,18 @@ const Landing = () => {
   const getData = async () => {
     const { data } = await doRequestHome()
     setIsProductsHome(data)
+
+    // const controller = new AbortController()
+    // try {
+    //   const response = await axiosPrivate.get(`${url}?featured=true`, {
+    //     signal: controller.signal,
+    //   })
+    //   console.log(response.data)
+    //   // isMounted && setUsers(response.data.employees)
+    // } catch (err) {
+    //   console.error(err)
+    //   // navigate('/login', { state: { from: location }, replace: true })
+    // }
   }
 
   useEffect(() => {

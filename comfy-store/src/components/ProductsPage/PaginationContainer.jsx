@@ -40,16 +40,15 @@ const PaginationContainer = ({
     return idx + 1
   })
 
-  if (pages.length === 2) {
-    if (paginPageFilter === 3) {
-      setPaginPageFilter(pages.length - 1)
+  useEffect(() => {
+    if (pages.length === 2) {
+      if (paginPageFilter === 3) {
+        setPaginPageFilter(pages.length - 1)
+      }
     }
-  }
+  }, [paginPageFilter])
 
   const handlePrevPage = () => {
-    console.log(paginPageFilterSplit)
-    console.log(paginPageFilterSort)
-
     if (!paginPageFilterSplit) {
       setPaginPage((prev) => ((prev + 1) % pages.length) + 1)
 
@@ -71,8 +70,6 @@ const PaginationContainer = ({
   }
 
   const handleNextPage = () => {
-    console.log(paginPageFilterSplit)
-    console.log(paginPageFilterSort)
     if (!paginPageFilterSplit) {
       setPaginPage((prev) => ((prev + pages.length) % pages.length) + 1)
 

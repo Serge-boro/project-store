@@ -11,18 +11,14 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  // const getDate = async () => {
-  //   const { data } = await axios.get('http://localhost:4002/store/products')
-  //   console.log(data)
-  // }
-  // useEffect(() => {
-  //   getDate()
-  // }, [])
-
   const userRef = useRef()
 
   const [user, setUser] = useState('')
   const [pwd, setPwd] = useState('')
+
+  // const [hour, setHour] = useState('')
+  // const [min, setMin] = useState('')
+  // const [sec, setSec] = useState('')
 
   const credentialName = 'test',
     credentialPassword = 'test@test.com'
@@ -45,20 +41,13 @@ const Login = () => {
     e.preventDefault()
 
     const response = await dispatch(addNewUser({ user, pwd })).unwrap()
+
     if (response) {
       setUser('')
       setPwd('')
       toast.success('Login success')
       redirect()
     }
-
-    // const accessToken = response?.data?.accessToken
-    // const role = response?.data?.role
-
-    // console.log(JSON.stringify(response?.data))
-    // console.log(accessToken)
-    // console.log(role)
-    // setAuth({ user, pwd, role, accessToken })
   }
 
   const redirect = () => {

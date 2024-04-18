@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react'
-import { customFetch } from '../utils'
-import axios from '../axios/axios'
-import { useNavigation } from 'react-router-dom'
+// import axios from '../axios/axios'
+import useAxiosPrivate from '../token/useAxiosPrivate'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const ProductsProvider = createContext()
 export const ProductsContext = ({ children }) => {
@@ -41,11 +41,28 @@ export const ProductsContext = ({ children }) => {
   }
 
   const customeFetchData = ({ url, params, method, body }) => {
+    const axiosPrivate = useAxiosPrivate()
+
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const controller = new AbortController()
+
+    // console.log(controller)
+    // console.log(controller.signal)
+
     const doRequest = async () => {
       try {
         setLoading(true)
         setErrors(null)
-        const { data } = await axios[method](url, { params }, body)
+        const { data } = await axiosPrivate[method](
+          url,
+          { params },
+          {
+            signal: controller.signal,
+          },
+          body
+        )
         data?.data && setLoading(false)
         return data
       } catch (err) {
@@ -55,9 +72,13 @@ export const ProductsContext = ({ children }) => {
             <h4>Ooops....something went wrong: {err.message}</h4>
           </div>
         )
+        if (err.response.status === 401) {
+          navigate('/login', { state: { from: location }, replace: true })
+        }
         setLoading(false)
       }
     }
+    controller.abort()
     return { doRequest, errors }
   }
 
