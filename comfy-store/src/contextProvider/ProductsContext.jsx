@@ -58,9 +58,9 @@ export const ProductsContext = ({ children }) => {
         const { data } = await axiosPrivate[method](
           url,
           { params },
-          {
-            signal: controller.signal,
-          },
+          // {
+          //   signal: controller.signal,
+          // },
           body
         )
         data?.data && setLoading(false)

@@ -21,8 +21,16 @@ export const addNewUser = createAsyncThunk(
   async (initialPost) => {
     try {
       const { data } = await axios.post(LOGIN_URL, initialPost, {
-        // headers: { 'Content-Type': 'application/json' },
-        // withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Access-Control-Allow-Origin': '*',
+          // 'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
+          // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+          // 'Access-Control-Allow-Credentials': 'true',
+        },
+        mode: 'no-cors',
+        credentials: 'include',
+        withCredentials: true,
       })
       return data
     } catch (err) {
@@ -44,8 +52,7 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
   try {
     const { data } = await axios.get(LOGOUT_URL, {
       headers: {
-        // 'Content-Type':
-        //   'application/x-www-form-urlencoded, multipart/form-data',
+        'Content-Type': 'application/json',
         // 'Access-Control-Allow-Origin': '*',
         // 'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
         // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
