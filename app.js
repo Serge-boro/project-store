@@ -13,15 +13,52 @@ const app = express()
 
 app.use(express.static(path.resolve(__dirname, './public')))
 app.use(express.json())
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-  })
-)
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: process.env.CLIENT_URL,
+//   })
+// )
+
+const corsConfig = {
+  origin: true,
+  credentials: true,
+}
+
+app.use(cors(corsConfig))
+app.options('*', cors(corsConfig))
+
+// app.use(
+//   cors({
+//     origin: '*',
+//     credentials: true,
+//   })
+// )
+
 app.use(cookieParser())
 
-// app.use(cors())
+// app.all('*', (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'https://localhost:3000')
+//   next()
+// })
+
+// app.use(
+//   cors({
+//     origin: 'http://localhost:5173', // use your actual domain name (or localhost), using * is not recommended
+//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+//     allowedHeaders: [
+//       'Content-Type',
+//       'Origin',
+//       'X-Requested-With',
+//       'Accept',
+//       'x-client-key',
+//       'x-client-token',
+//       'x-client-secret',
+//       'Authorization',
+//     ],
+//     credentials: true,
+//   })
+// )
 
 app.use('/store', router)
 

@@ -6,12 +6,13 @@ export default axios.create({
   headers: {
     'Content-Type': 'application/json',
     // 'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
     // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     // 'Access-Control-Allow-Credentials': 'true',
   },
   mode: 'no-cors',
-  credentials: 'include',
-  // withCredentials: true,
+  credentials: false,
+  withCredentials: false,
 })
 
 export const axiosPrivate = axios.create({
@@ -23,7 +24,7 @@ export const axiosPrivate = axios.create({
     // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     // 'Access-Control-Allow-Credentials': 'true',
   },
-  // mode: 'cors',
-  // credentials: 'include',
+  // mode: 'no-cors',
+  // credentials: false,
   withCredentials: true,
 })

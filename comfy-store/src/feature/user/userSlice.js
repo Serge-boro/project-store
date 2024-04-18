@@ -28,8 +28,20 @@ export const addNewUser = createAsyncThunk(
           // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
           // 'Access-Control-Allow-Credentials': 'true',
         },
-        mode: 'no-cors',
-        credentials: 'include',
+        // mode: 'no-cors',
+        // credentials: 'include',
+        // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+        // allowedHeaders: [
+        //   'Content-Type',
+        //   'Origin',
+        //   'X-Requested-With',
+        //   'Accept',
+        //   'x-client-key',
+        //   'x-client-token',
+        //   'x-client-secret',
+        //   'Authorization',
+        // ],
+        credentials: true,
         withCredentials: true,
       })
       return data
