@@ -1,17 +1,30 @@
 require('dotenv').config()
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const router = require('./router/storeRouter')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const path = require('path')
 
+const notFoundMiddleware = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
+
 const app = express()
 
 app.use(express.static(path.resolve(__dirname, './public')))
 app.use(express.json())
-app.use(cors())
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+  })
+)
+app.use(cookieParser())
 
 app.use('/store', router)
+
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './public', 'index.html'))

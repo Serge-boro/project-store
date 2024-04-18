@@ -4,12 +4,14 @@ const bcrypt = require('bcrypt')
 const SchemaUser = new Schema({
   user: {
     type: String,
-    required: true,
+    required: [true, 'Please provide user name'],
   },
   pwd: {
     type: String,
-    default: true,
+    required: [true, 'Please provide password'],
+    minlength: 6,
   },
+  refreshToken: String,
 })
 
 SchemaUser.pre('save', async function () {

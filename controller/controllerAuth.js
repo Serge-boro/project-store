@@ -1,5 +1,7 @@
 const UserSchema = require('../moduleDB/moduleUser')
+const jwt = require('jsonwebtoken')
 
+let userFound
 const getAllUsers = (req, res) => {
   res.send('All users')
 }
@@ -14,7 +16,7 @@ const postRegister = async (req, res, next) => {
         .json({ message: 'Email and password are required.' })
     }
 
-    const userFound = await UserSchema.findOne({ user })
+    userFound = await UserSchema.findOne({ user })
     if (userFound) {
       return res.status(401).json({ message: `Username ${user} already exist` })
     }
@@ -38,8 +40,7 @@ const postLogin = async (req, res, next) => {
       credentialPassword === 'test@test.com'
     ) {
       const user = 'guest'
-      res.status(200).json({ user })
-      return next()
+      return res.status(200).json({ user })
     }
 
     if (!user || !pwd) {
@@ -48,7 +49,7 @@ const postLogin = async (req, res, next) => {
         .json({ message: 'Username and password are required.' })
     }
 
-    const userFound = await UserSchema.findOne({ user })
+    userFound = await UserSchema.findOne({ user })
     if (!userFound) {
       return res
         .status(401)
@@ -56,41 +57,104 @@ const postLogin = async (req, res, next) => {
     }
 
     const comparePassword = await userFound.comparePassword(pwd)
-    // console.log(comparePassword)
     if (!comparePassword) {
       return res.status(401).json({ message: `Password does not match` })
     }
 
-    // const role = userFound.role
-    // const accessToken = jwt.sign(
-    //   { username: userFound.user, role },
-    //   process.env.ACCESS_TOKEN_SECRET,
-    //   { expiresIn: '10s' }
-    // )
-    // const refreshToken = jwt.sign(
-    //   { username: userFound.user },
-    //   process.env.REFRESH_TOKEN_SECRET,
-    //   { expiresIn: '15s' }
-    // )
+    const accessToken = jwt.sign(
+      { username: userFound.user },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '60s' }
+    )
+    const refreshToken = jwt.sign(
+      { username: userFound.user },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: '80s' }
+    )
 
-    // console.log({ refreshToken, role })
+    // console.log({ refreshToken })
 
-    // userFound.refreshToken = refreshToken
-    // await userFound.save()
+    userFound.refreshToken = refreshToken
+    await userFound.save()
 
-    // res.cookie('jwt', refreshToken, {
-    //   httpOnly: true,
-    //   sameSite: 'None',
-    //   secure: true,
-    //   maxAge: 24 * 60 * 60 * 1000,
-    // })
+    res.cookie('jwt', refreshToken, {
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+      maxAge: 60 * 1000,
+    })
 
-    // res.status(200).json({ accessToken, role })
-
-    res.status(200).json({ user })
+    res.status(200).json({ user, pwd, accessToken })
   } catch (err) {
     next(err)
   }
 }
 
-module.exports = { getAllUsers, postRegister, postLogin }
+const refreshTokenController = async (req, res, next) => {
+  const cookies = req.cookies
+
+  // console.log(req)
+  if (!cookies?.jwt) {
+    return res.status(401).json({ message: 'Cookie is missing' })
+  }
+  const refreshToken = cookies.jwt
+
+  const matchToken = userFound.refreshToken === refreshToken
+  if (!matchToken) {
+    return res.status(401).json({ message: 'Cookie is not match' })
+  }
+
+  // console.log(userFound.user)
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    console.log({ decoded })
+    if (err || userFound.user !== decoded.username) {
+      return res.status(401).json({ message: 'verify jwt failed' })
+    }
+
+    const accessToken = jwt.sign(
+      { username: decoded.username },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '60s' }
+    )
+    res.json({ accessToken })
+  })
+}
+
+const logout = async (req, res, next) => {
+  const cookies = req.cookies
+  // console.log({ cookies })
+  if (!cookies?.jwt) {
+    return res.status(201).json({ message: 'Cookie already removed' })
+  }
+
+  const refreshToken = cookies.jwt
+  foundUser = userFound.refreshToken === refreshToken
+  if (!foundUser) {
+    res.cookie('jwt', 'logout', {
+      httpOnly: true,
+      sameSite: 'None',
+      secure: true,
+      expires: new Date(Date.now()),
+    })
+    return res
+      .status(201)
+      .json({ message: 'JWT is not matches, will be delete' })
+  }
+
+  userFound.refreshToken = ''
+  await userFound.save()
+  res.cookie('jwt', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  })
+  res.status(201).json({ message: 'Logged out successfully' })
+}
+
+module.exports = {
+  getAllUsers,
+  postRegister,
+  postLogin,
+  refreshTokenController,
+  logout,
+}
