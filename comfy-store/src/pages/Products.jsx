@@ -7,6 +7,9 @@ import {
   Loading,
 } from '../components'
 import { useContextProvider } from '../contextProvider/ProductsContext'
+import { useDispatch } from 'react-redux'
+import { renderItemCart } from '../feature/cart/cartSlice'
+import { useNavigate } from 'react-router-dom'
 
 // import { useNavigate, useLocation } from 'react-router-dom'
 // import useAxiosPrivate from '../token/useAxiosPrivate'

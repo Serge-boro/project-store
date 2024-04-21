@@ -1,18 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { clearCart } from '../feature/cart/cartSlice'
+import { clearCart, deleteCartItems } from '../feature/cart/cartSlice'
 import { logoutUser } from '../feature/user/userSlice'
+import { useContextProvider } from '../contextProvider/ProductsContext'
 
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { user } = useSelector((state) => state.userState.user)
+  const { user } = useContextProvider()
+  // const { user } = useSelector((state) => state.userState.user)
 
   const handleLogout = () => {
     console.log(user)
     navigate('/')
     dispatch(clearCart())
+    dispatch(deleteCartItems())
     dispatch(logoutUser())
+    localStorage.removeItem('user')
+    navigate(0)
   }
 
   return (

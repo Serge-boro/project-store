@@ -23,25 +23,7 @@ export const addNewUser = createAsyncThunk(
       const { data } = await axios.post(LOGIN_URL, initialPost, {
         headers: {
           'Content-Type': 'application/json',
-          // 'Access-Control-Allow-Origin': '*',
-          // 'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
-          // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-          // 'Access-Control-Allow-Credentials': 'true',
         },
-        // mode: 'no-cors',
-        // credentials: 'include',
-        // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-        // allowedHeaders: [
-        //   'Content-Type',
-        //   'Origin',
-        //   'X-Requested-With',
-        //   'Accept',
-        //   'x-client-key',
-        //   'x-client-token',
-        //   'x-client-secret',
-        //   'Authorization',
-        // ],
-        credentials: true,
         withCredentials: true,
       })
       return data
@@ -65,10 +47,6 @@ export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
     const { data } = await axios.get(LOGOUT_URL, {
       headers: {
         'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': '*',
-        // 'Access-Control-Allow-Headers': 'X-PINGOTHER, Content-Type',
-        // 'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-        // 'Access-Control-Allow-Credentials': 'true',
       },
       withCredentials: true,
     })
@@ -100,11 +78,11 @@ const userSlice = createSlice({
     // loginUser: (state, action) => {
     //   console.log('login')
     // },
-    logoutUser: (state) => {
-      state.user = {}
-      // localStorage.removeItem('user')
-      toast.success('Logged out successfully')
-    },
+    // logoutUser: (state) => {
+    //   state.user = {}
+    //   // localStorage.removeItem('user')
+    //   toast.success('Logged out successfully')
+    // },
     toggleTheme: (state) => {
       const { winter, dracula } = themes
       state.theme = state.theme === dracula ? winter : dracula
@@ -115,7 +93,9 @@ const userSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(addNewUser.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.user = action.payload
+        localStorage.setItem('user', JSON.stringify(state.user.user))
       })
       .addCase(logoutUser.fulfilled, (state, action) => {
         state.user = {}

@@ -4,6 +4,8 @@ const verifyJWT = (req, res, next) => {
   try {
     let authHeaderAccess = req.headers.authorization
 
+    console.log(authHeaderAccess)
+
     // console.log(req.headers)
 
     //!authHeaderAccess?.startsWith('Bearer') same below if / if
@@ -18,9 +20,10 @@ const verifyJWT = (req, res, next) => {
     }
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-      // console.log(decoded)
+      console.log({ dec: decoded })
+      console.log(token)
       if (err) return res.status(403).json({ message: 'Invalid token' }) //invalid token
-      req.user = { username: decoded.username }
+      req.user = { username: decoded.username, userId: decoded.userId }
       next()
     })
   } catch (err) {

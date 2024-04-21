@@ -25,6 +25,4 @@ SchemaUser.methods.comparePassword = async function (candidatePassword) {
   return isMatch
 }
 
-const User = model('Users', SchemaUser)
-
-module.exports = User
+module.exports = model('Users', SchemaUser)

@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from 'react'
 // import axios from '../axios/axios'
 import useAxiosPrivate from '../token/useAxiosPrivate'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const ProductsProvider = createContext()
 export const ProductsContext = ({ children }) => {
@@ -27,6 +28,8 @@ export const ProductsContext = ({ children }) => {
 
   const [paginPageFilterSort, setPaginPageFilterSort] = useState(false)
 
+  const user = JSON.parse(localStorage.getItem('user')) || null
+
   const cleanUpInputs = () => {
     setIsSearch('')
     setIsCompany('')
@@ -46,7 +49,7 @@ export const ProductsContext = ({ children }) => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    const controller = new AbortController()
+    // const controller = new AbortController()
 
     // console.log(controller)
     // console.log(controller.signal)
@@ -74,11 +77,13 @@ export const ProductsContext = ({ children }) => {
         )
         if (err.response.status === 401) {
           navigate('/login', { state: { from: location }, replace: true })
+          localStorage.removeItem('user')
+          toast.success('Authorization failed, please log in')
         }
         setLoading(false)
       }
     }
-    controller.abort()
+    // controller.abort()
     return { doRequest, errors }
   }
 
@@ -120,6 +125,7 @@ export const ProductsContext = ({ children }) => {
         setIsPagination,
         paginPageFilterSort,
         setPaginPageFilterSort,
+        user,
       }}
     >
       {children}

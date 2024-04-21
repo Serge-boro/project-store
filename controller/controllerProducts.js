@@ -103,6 +103,7 @@ const getSingleProductsData = async (req, res) => {
     }
   })
 
+  console.log(req.user)
   res.status(200).json(result)
 }
 

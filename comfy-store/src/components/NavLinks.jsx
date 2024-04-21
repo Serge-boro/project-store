@@ -11,8 +11,9 @@ import { NavLink } from 'react-router-dom'
 import { useContextProvider } from '../contextProvider/ProductsContext'
 
 const NavLinks = () => {
-  const { cleanUpInputs } = useContextProvider()
-  const { user } = useSelector((state) => state.userState.user)
+  const { cleanUpInputs, user } = useContextProvider()
+  // const { user } = useSelector((state) => state.userState.user)
+
   return (
     <>
       {links.map((link) => {

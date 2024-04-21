@@ -1,18 +1,34 @@
 import { formatPrice, generateAmountOptions } from '../../utils'
-import { removeCartItem, editCartItem } from '../../feature/cart/cartSlice'
+import {
+  removeItemCart,
+  editCartItem,
+  renderItemCart,
+  removeCartItem,
+  updateItemCart,
+} from '../../feature/cart/cartSlice'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 const CartItem = ({ cartItem }) => {
   const dispatch = useDispatch()
-
-  const removeItemFromTheCart = () => {
-    dispatch(removeCartItem({ cartID }))
-  }
-  const handleAmount = (e) => {
-    dispatch(editCartItem({ cartID, amount: parseInt(e.target.value) }))
-  }
+  const navigate = useNavigate()
 
   const { cartID, title, price, image, amount, company, productColor } =
     cartItem
+
+  const handleAmount = (e) => {
+    dispatch(editCartItem({ cartID, amount: parseInt(e.target.value) }))
+    dispatch(updateItemCart({ cartID, amount: parseInt(e.target.value) }))
+  }
+
+  const removeItemFromTheCart = () => {
+    dispatch(removeItemCart({ cartID }))
+    dispatch(removeCartItem({ cartID }))
+  }
+
+  // useEffect(() => {
+  //   dispatch(renderItemCart())
+  // }, [amount])
 
   return (
     <article

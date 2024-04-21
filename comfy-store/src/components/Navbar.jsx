@@ -19,9 +19,6 @@ const Navbar = () => {
   const { isNavlink, setIsNavlink } = useContextProvider()
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  // }, [])
-
   const handleTheme = () => {
     dispatch(toggleTheme())
   }

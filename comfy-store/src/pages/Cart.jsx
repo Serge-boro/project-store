@@ -1,13 +1,24 @@
 import { useSelector } from 'react-redux'
 import { CartItemsList, SectionTitle, CartTotal } from '../components'
 import { Link } from 'react-router-dom'
+import { renderItemCart } from '../feature/cart/cartSlice'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 const Cart = () => {
   const { user } = useSelector((user) => user.userState.user)
   const numItemsInCart = useSelector((state) => state.cartState.numItemsInCart)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(renderItemCart())
+  }, [])
+
   if (numItemsInCart === 0) {
     return <SectionTitle text='Your cart is empty' />
   }
+
   return (
     <>
       <SectionTitle text='Shopping Cart' />
