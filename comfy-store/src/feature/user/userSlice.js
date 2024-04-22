@@ -21,9 +21,9 @@ export const addNewUser = createAsyncThunk(
   async (initialPost) => {
     try {
       const { data } = await axios.post(LOGIN_URL, initialPost, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         withCredentials: true,
       })
       return data
@@ -45,9 +45,9 @@ export const addNewUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
   try {
     const { data } = await axios.get(LOGOUT_URL, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
       withCredentials: true,
     })
     console.log(data)

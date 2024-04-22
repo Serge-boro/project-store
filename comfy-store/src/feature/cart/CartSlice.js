@@ -24,9 +24,9 @@ export const addItemCart = createAsyncThunk(
   async (initialPost) => {
     try {
       const { data } = await axiosPrivate.post(CART_URL, initialPost, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         withCredentials: true,
       })
       return data
@@ -50,9 +50,9 @@ export const removeItemCart = createAsyncThunk(
   async (initialPost) => {
     try {
       const { data } = await axiosPrivate.post(CART_REMOTE_URL, initialPost, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         withCredentials: true,
       })
       return data
@@ -76,9 +76,9 @@ export const updateItemCart = createAsyncThunk(
   async (initialPost) => {
     try {
       const { data } = await axiosPrivate.patch(CART_UPDATE_URL, initialPost, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
         withCredentials: true,
       })
       console.log(data)
@@ -101,9 +101,9 @@ export const updateItemCart = createAsyncThunk(
 export const deleteCartItems = createAsyncThunk('user/deleteCart', async () => {
   try {
     const { data } = await axiosPrivate.delete(CART_DELETE_ALL, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
       withCredentials: true,
     })
     console.log(data)
@@ -125,9 +125,9 @@ export const deleteCartItems = createAsyncThunk('user/deleteCart', async () => {
 export const renderItemCart = createAsyncThunk('user/renderCart', async () => {
   try {
     const { data } = await axiosPrivate.get(CART_URL, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
       withCredentials: true,
     })
     console.log(data)
