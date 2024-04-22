@@ -66,12 +66,12 @@ const postLogin = async (req, res, next) => {
     const accessToken = jwt.sign(
       { username: userFound.user, userId },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: '36000s' }
+      { expiresIn: '15s' }
     )
     const refreshToken = jwt.sign(
       { username: userFound.user, userId },
       process.env.REFRESH_TOKEN_SECRET,
-      { expiresIn: '36000s' }
+      { expiresIn: '15s' }
     )
 
     // console.log({ refreshToken })
@@ -83,7 +83,7 @@ const postLogin = async (req, res, next) => {
       httpOnly: true,
       sameSite: 'None',
       secure: true,
-      maxAge: 60 * 60 * 1000,
+      maxAge: 20 * 1000,
     })
 
     res.status(200).json({ userID: userId, user, accessToken })
