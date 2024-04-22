@@ -14,12 +14,12 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, './public')))
 app.use(express.json())
 
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-  })
-)
+// app.use(
+//   cors({
+//     credentials: true,
+//     // origin: '*',
+//   })
+// )
 
 const corsConfig = {
   origin: true,
