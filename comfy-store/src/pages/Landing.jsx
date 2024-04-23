@@ -3,7 +3,7 @@ import { FeatureProducts, Hero } from '../components'
 import { useContextProvider } from '../contextProvider/ProductsContext'
 import { Loading } from '../components'
 
-const url = 'https://front-backend-project.netlify.app/products'
+const url = 'http://localhost:4002/products'
 
 const Landing = () => {
   const [isProductsHome, setIsProductsHome] = useState([])
