@@ -3,7 +3,7 @@ import { FeatureProducts, Hero } from '../components'
 import { useContextProvider } from '../contextProvider/ProductsContext'
 import { Loading } from '../components'
 
-const url = '/products'
+const url = 'products'
 
 const Landing = () => {
   const [isProductsHome, setIsProductsHome] = useState([])
