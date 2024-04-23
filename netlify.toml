@@ -1,2 +1,13 @@
 [build]
-functions = './functions'
+command = 'npm run build'
+publish = './public'
+
+[[redirects]]
+from = 'http://localhost:4002/store/\*'
+to = '/.netlify/functions/:splat'
+status = 200
+
+[[redirects]]
+from = '/\*'
+to = '/index.html'
+status = 200
