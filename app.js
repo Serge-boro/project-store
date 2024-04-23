@@ -14,20 +14,23 @@ const app = express()
 app.use(express.static(path.resolve(__dirname, './public')))
 app.use(express.json())
 
-// app.use(
-//   cors({
-//     credentials: true,
-//     // origin: '*',
-//   })
-// )
+const origin =
+  'http://localhost:5173' || 'https://front-backend-project.netlify.app'
 
-const corsConfig = {
-  origin: true,
-  credentials: true,
-}
+app.use(
+  cors({
+    credentials: true,
+    origin,
+  })
+)
 
-app.use(cors(corsConfig))
-app.options('*', cors(corsConfig))
+// const corsConfig = {
+//   origin: true,
+//   credentials: true,
+// }
+
+// app.use(cors(corsConfig))
+// app.options('*', cors(corsConfig))
 
 app.use(cookieParser())
 
