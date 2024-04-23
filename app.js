@@ -20,7 +20,8 @@ const origin = 'http://localhost:5173'
 app.use(
   cors({
     credentials: true,
-    origin: process.env.ORIGIN,
+    // origin: process.env.ORIGIN,
+    origin,
   })
 )
 

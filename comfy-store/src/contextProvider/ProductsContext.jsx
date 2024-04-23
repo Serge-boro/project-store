@@ -64,6 +64,7 @@ export const ProductsContext = ({ children }) => {
           // {
           //   signal: controller.signal,
           // },
+
           body
         )
         data?.data && setLoading(false)
