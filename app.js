@@ -6,6 +6,8 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const path = require('path')
 
+const serverless = require('serverless-http')
+
 const notFoundMiddleware = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
 
@@ -36,7 +38,9 @@ app.use(express.json())
 
 app.use(cookieParser())
 
-app.use('/store', router)
+// app.use('/store', router)
+
+app.use('/.netlify/functions/store', router)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
@@ -60,3 +64,6 @@ const start = async () => {
 }
 
 start()
+
+module.exports = app
+module.exports.handler = serverless(app)

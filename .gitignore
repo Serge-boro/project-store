@@ -3,3 +3,5 @@ node_modules
 manualPopulate
 # Local Netlify folder
 .netlify
+functions
+netlify_functions

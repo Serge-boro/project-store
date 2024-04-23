@@ -1,9 +1,6 @@
-[[redirects]]
-from = '/store/\*'
-to = '/.netlify/functions/:splat'
-status = 200
+[build]
+  functions = "functions"
 
-[[redirects]]
-from = '/\*'
-to = '/index.html'
-status = 200
+[dev]
+  publish = "dist"
+
