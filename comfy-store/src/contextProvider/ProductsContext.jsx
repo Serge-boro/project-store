@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react'
-// import axios from '../axios/axios'
+import axios from '../axios/axios'
 import useAxiosPrivate from '../token/useAxiosPrivate'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
