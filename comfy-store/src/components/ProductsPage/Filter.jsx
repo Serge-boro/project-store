@@ -39,7 +39,7 @@ const Filter = ({
   } = useContextProvider()
 
   const { doRequest: doRequestProductsFilter } = customeFetchData({
-    url,
+    'https://project-store-pij8.onrender.com/products',
     method: 'get',
     params: {
       search: `${isSearch}`,
