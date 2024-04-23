@@ -1,6 +1,6 @@
 import axios from 'axios'
 // const BASE_URL = 'http://localhost:4002/store'
-const BASE_URL = 'front-backend-project.netlify.app'
+const BASE_URL = '/'
 
 export default axios.create({
   baseURL: BASE_URL,
