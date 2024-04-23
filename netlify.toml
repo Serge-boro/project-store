@@ -1,7 +1,5 @@
 [build]
- command = 'npm run build'
- publish = '/dist'
- functions = './comfy-server/netlify_functions'
+ functions = './netlify_functions'   
 
 [[redirects]]
  from = '/store/*'
