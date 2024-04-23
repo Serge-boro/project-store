@@ -31,7 +31,7 @@ router.route('/refresh').get(refreshTokenController)
 router.route('/logout').get(logout)
 
 router.route('/products').get(getProductsData)
-router.route('/products/:id').get(verifyJWT, getSingleProductsData)
+router.route('/products/:id').get(getSingleProductsData)
 
 router.route('/order').get(renderCart).post(verifyJWT, addCartItem)
 router.route('/removeItemCart').post(removeCartItem)

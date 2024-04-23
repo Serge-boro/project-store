@@ -22,6 +22,7 @@ app.use(
     credentials: true,
     // origin: process.env.ORIGIN,
     origin: 'https://front-backend-project.netlify.app',
+    methods: ['GET', 'POST'],
   })
 )
 
