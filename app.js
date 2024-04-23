@@ -40,7 +40,7 @@ app.use(cookieParser())
 
 // app.use('/store', router)
 
-app.use('/.netlify/functions/public', router)
+app.use('/store', router)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
