@@ -8,7 +8,9 @@
     "server": "nodemon app.js",
     "client": "cd comfy-store && npm run dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "netlify": "netlify"
+    "netlify": "ntl dev",
+    "build": "CI= react-scripts build"
+
   },
   "author": "",
   "license": "ISC",
