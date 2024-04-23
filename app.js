@@ -12,15 +12,15 @@ const errorHandlerMiddleware = require('./middleware/error-handler')
 const app = express()
 
 // const origin = 'https://front-backend-project.netlify.app'
-const origin = 'http://localhost:5173'
+// const origin = 'http://localhost:5173'
 app.use(
   cors({
-    // credentials: true,
-    // // origin: process.env.ORIGIN,
+    credentials: true,
+    origin: process.env.ORIGIN,
     // origin,
     // methods: ['GET', 'POST'],
-    origin: true,
-    credentials: true,
+    // origin: true,
+    // credentials: true,
   })
 )
 app.use(express.static(path.resolve(__dirname, './public')))
