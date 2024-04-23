@@ -8,7 +8,7 @@
     "client": "cd comfy-store && npm run dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
-    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src"
+    "build": "CI= react-scripts build"
   },
   "author": "",
   "license": "ISC",
