@@ -1,5 +1,5 @@
 [[redirects]]
-from = 'http://localhost:4002/store/\*'
+from = '/store/\*'
 to = '/.netlify/functions/:splat'
 status = 200
 
