@@ -1,6 +1,6 @@
 [build]
  command = 'npm run build'
- publish = '/dist'
+ publish = '../public'
  functions = '../comfy-server/netlify_functions'
 
 [[redirects]]

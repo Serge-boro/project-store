@@ -1,5 +1,7 @@
 [build]
- functions = './netlify_functions'   
+ command = 'npm run build'
+ publish = '/build'
+ functions = './netlify_functions' 
 
 [[redirects]]
  from = '/store/*'
