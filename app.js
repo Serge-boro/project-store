@@ -57,7 +57,7 @@ const start = async () => {
       process.env.ConnectionMongoDB,
       console.log('Connecting to mongoDB ...')
     )
-    await app.listen(PORT, console.log(`Listening ${PORT} port ...`))
+    // await app.listen(PORT, console.log(`Listening ${PORT} port ...`))
   } catch (err) {
     console.log(err)
   }
