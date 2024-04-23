@@ -10,7 +10,7 @@ const Landing = () => {
   const { customeFetchData, loading } = useContextProvider()
 
   const { doRequest: doRequestHome, errors } = customeFetchData({
-    url,
+    `https://project-store-pij8.onrender.com/${url}`,
     method: 'get',
     params: { featured: 'true' },
     body: {},
