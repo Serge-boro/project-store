@@ -1,0 +1,54 @@
+redirectsOrigin = "config"
+plugins = []
+functionsDirectory = "C:\\Users\\user\\Desktop\\html\\java_practice\\GOOD\\STARTS\\REACT_COURSE_SMILGA\\JHON_SMILGA\\10_COMFY_STORE_PROJECT\\comfy-server\\netlify_functions"
+functionsDirectoryOrigin = "config-v1"
+headers = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "C:\\Users\\user\\Desktop\\html\\java_practice\\GOOD\\STARTS\\REACT_COURSE_SMILGA\\JHON_SMILGA\\10_COMFY_STORE_PROJECT\\comfy-server\\build"
+publishOrigin = "config"
+command = "npm run build"
+commandOrigin = "config"
+functions = "C:\\Users\\user\\Desktop\\html\\java_practice\\GOOD\\STARTS\\REACT_COURSE_SMILGA\\JHON_SMILGA\\10_COMFY_STORE_PROJECT\\comfy-server\\netlify_functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[redirects]]
+from = "/store/*"
+to = "/.netlify/functions/:splat"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
