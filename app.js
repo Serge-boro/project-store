@@ -15,13 +15,13 @@ app.use(express.static(path.resolve(__dirname, './public')))
 app.use(express.json())
 
 // const origin = 'https://front-backend-project.netlify.app'
-const origin = 'http://localhost:5173'
+// const origin = 'http://localhost:5173'
 
 app.use(
   cors({
     credentials: true,
     // origin: process.env.ORIGIN,
-    origin,
+    origin: 'https://front-backend-project.netlify.app',
   })
 )
 
