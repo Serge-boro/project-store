@@ -40,13 +40,13 @@ app.use(cookieParser())
 
 // app.use('/store', router)
 
-app.use('/.netlify/functions/store', router)
+app.use('/.netlify/functions/public', router)
 
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './public', 'index.html'))
+  res.sendFile(path.resolve(__dirname, './build', 'index.html'))
 })
 
 const PORT = process.env.PORT || 5000
