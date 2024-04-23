@@ -19,9 +19,9 @@ app.use(express.json())
 
 app.use(
   cors({
-    // credentials: true,
+    credentials: true,
     // origin: process.env.ORIGIN,
-    origin: '*',
+    origin: 'https://front-backend-project.netlify.app',
   })
 )
 
