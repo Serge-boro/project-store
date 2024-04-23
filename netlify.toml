@@ -1,6 +1,7 @@
 [build]
 command = 'npm run build'
 publish = './public'
+functions = './netlify_functions'
 
 [[redirects]]
 from = 'http://localhost:4002/store/\*'
