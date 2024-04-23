@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy": "https://front-backend-project.netlify.app",
   "scripts": {
     "start": "node app.js",
     "server": "nodemon app.js",
