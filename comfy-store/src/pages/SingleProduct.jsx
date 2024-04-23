@@ -7,8 +7,7 @@ import { useDispatch } from 'react-redux'
 import { addItemCart, cartRender } from '../feature/cart/cartSlice'
 import { nanoid } from 'nanoid'
 
-// const url = '/products'
-const url = '/.netlify/functions'
+const url = '/products'
 
 const SingleProduct = () => {
   const [isSingleProduct, setIsSingleProduct] = useState({})
